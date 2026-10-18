@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Flowboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="topbar">
+        <div>
+            <h1>Flowboard</h1>
+            <span class="hint">Trello-style</span>
+        </div>
+
+        <div class="actions">
+            <input id="search" type="search" placeholder="Search tasks…">
+
+            <select id="filterPriority">
+                <option value="">All priorities</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+
+            <button id="undoBtn" type="button" title="Undo (Ctrl/Cmd+Z)">↶</button>
+            <button id="redoBtn" type="button" title="Redo (Ctrl/Cmd+Shift+Z)">↷</button>
+            <button id="themeBtn" type="button" title="Toggle theme">◐</button>
+            <button id="addColumnBtn" type="button">+ Column</button>
+        </div>
+    </header>
+
+    <main id="board" class="board" aria-label="Kanban board"></main>
+
+    <dialog id="taskDialog">
+        <form id="taskForm" method="dialog">
+            <input type="hidden" id="taskId">
+            <input type="hidden" id="taskColumn">
+
+            <div class="dialog-head">
+                <h2 id="taskDialogTitle">Task</h2>
+                <button type="button" class="icon" data-close aria-label="Close dialog">✕</button>
+            </div>
+
+            <label>
+                Title
+                <input id="title" maxlength="120" required>
+            </label>
+
+            <label>
+                Description
+                <textarea id="description" rows="4"></textarea>
+            </label>
+
+            <div class="grid2">
+                <label>
+                    Priority
+                    <select id="priority">
+                        <option value="low">Low</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </label>
+
+                <label>
+                    Due date
+                    <input id="due" type="date">
+                </label>
+            </div>
+
+            <label>
+                Tags <span class="muted">comma separated</span>
+                <input id="tags" placeholder="frontend, urgent">
+            </label>
+
+            <label>
+                Subtasks <span class="muted">one per line</span>
+                <textarea id="subtasks" rows="4"></textarea>
+            </label>
+
+            <div class="dialog-actions">
+                <button type="button" id="deleteTaskBtn" class="danger">Delete</button>
+                <span></span>
+                <button type="button" data-close>Cancel</button>
+                <button type="submit" name="action" value="save" class="primary">Save</button>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog id="columnDialog">
+        <form id="columnForm" method="dialog">
+            <div class="dialog-head">
+                <h2>New column</h2>
+                <button type="button" class="icon" data-close aria-label="Close dialog">✕</button>
+            </div>
+
+            <label>
+                Name
+                <input id="columnName" maxlength="40" required>
+            </label>
+
+            <div class="dialog-actions">
+                <span></span>
+                <span></span>
+                <button type="button" data-close>Cancel</button>
+                <button type="submit" name="action" value="save" class="primary">Add</button>
+            </div>
+        </form>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+
+</html>
